@@ -1,0 +1,28 @@
+.PHONY: all build test lint clean run
+
+all: build test lint
+
+build:
+	@echo "Building..."
+	./build.sh
+
+test:
+	@echo "Running tests..."
+	pytest
+	rm -rf test/tmp_test_files/*
+
+lint:
+	@echo "Linting..."
+	black pypassword_encryption
+	isort pypassword_encryption
+
+format:
+	echo
+
+clean:
+	@echo "Cleaning..."
+	rm -rf dist build *.egg-info
+	rm -rf test/tmp_test_files/*
+
+run:
+	python -m pypassword

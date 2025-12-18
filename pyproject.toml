@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "pypassword-protect"
+version = "0.1.0"
+description = ""
+authors = ["Lancasterg <lancaster0180@gmail.com>"]
+readme = "README.md"
+packages = [{include = "pypassword_protect"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+cryptography = "^46.0.3"
+setuptools = "^80.9.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.12.0"
+isort = "^7.0.0"
+mypy = "^1.19.1"
+pytest = "^9.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[project.scripts]
+mycommand = "pypassword_enccyption.main:main"

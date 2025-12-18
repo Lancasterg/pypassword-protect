@@ -1,0 +1,96 @@
+# =========================
+# Python bytecode / cache
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# =========================
+# Virtual environments
+# =========================
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# =========================
+# PyCharm
+# =========================
+.idea/
+*.iml
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+*.code-workspace
+
+# =========================
+# Build / distribution
+# =========================
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# =========================
+# Pytest / coverage
+# =========================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+test-results/
+
+# =========================
+# MyPy / type checking
+# =========================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# =========================
+# Ruff / Flake8 / Linters
+# =========================
+.ruff_cache/
+.flake8
+.pycodestyle
+
+# =========================
+# Logs / runtime files
+# =========================
+*.log
+*.pid
+*.sqlite3
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# PyInstaller
+# =========================
+*.manifest
+*.spec
+
+# =========================
+# Local tools
+# =========================
+.cache/
+.tox/
+.nox/
