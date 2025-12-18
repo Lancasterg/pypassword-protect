@@ -13,8 +13,8 @@ test:
 
 lint:
 	@echo "Linting..."
-	black pypassword_encryption
-	isort pypassword_encryption
+	black pypassword_protect
+	isort pypassword_protect
 
 format:
 	echo

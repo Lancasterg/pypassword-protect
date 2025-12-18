@@ -35,7 +35,6 @@ def create_file(file_path: str) -> str:
     return file_path
 
 
-
 #
 # def derive_key(password: str, salt: bytes) -> bytes:
 #     kdf = PBKDF2HMAC(

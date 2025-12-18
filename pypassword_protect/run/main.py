@@ -16,7 +16,9 @@ def main():
 
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("-l", "--lock", action="store_true", help="Lock (encrypt) file")
-    mode.add_argument("-u", "--unlock", action="store_true", help="Unlock (decrypt) file")
+    mode.add_argument(
+        "-u", "--unlock", action="store_true", help="Unlock (decrypt) file"
+    )
 
     parser.add_argument("-n", "--new", help="Create a new file")
 
