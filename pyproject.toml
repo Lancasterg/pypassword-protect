@@ -24,4 +24,4 @@ build-backend = "poetry.core.masonry.api"
 
 
 [project.scripts]
-mycommand = "pypassword_enccyption.main:main"
+mycommand = "pypassword_protect.run.main:main"
