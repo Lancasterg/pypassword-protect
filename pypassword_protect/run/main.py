@@ -1,68 +1,56 @@
 import argparse
 from getpass import getpass
 
-from pypassword_protect.source.encryption_decryption import create_file, CurrentState
 from dataclasses import dataclass
+
+from pypassword_protect.source.helpers import unlock_file, lock_file
 
 description = """
 Password-protect files. 
-
-Can: 
-1. Create a new encrypted file with the postfix .enc
-2. 
-
-
-
-    # parser.add_argument("file", help="File to encrypt or decrypt")
-    # parser.add_argument("-l", "--lock", action="store_true", help="Lock (encrypt) file")
-    # parser.add_argument(
-    #     "-u", "--unlock", action="store_true", help="Unlock (decrypt) file"
-    # )
-
+    TODO: write more in here :)
 """
 
 
 @dataclass
-class ProtectedFile:
-    new: str | None
-    password: str | None
-    state: CurrentState = CurrentState.UNLOCKED
+class Arguments:
+    password: str
+    lock: bool
+    unlock: bool
+    file: str
 
 
-def parse_arguments() -> ProtectedFile:
-    parser = argparse.ArgumentParser(description="Password-protect files")
+def parse_arguments() -> Arguments:
+    parser = argparse.ArgumentParser(description=description)
 
-    parser.add_argument("-n", "--new", help="Create a new file")
-    parser.add_argument("-p", "--password", action="store_true", help="Password for the new file")
+    parser.add_argument("-l", "--lock", action="store_true", help="Lock (encrypt) the file")
+    parser.add_argument("-u", "--unlock", action="store_true", help="Unlock (decrypt) the file")
+    parser.add_argument("-f", "--file", help="Path to the file", required=True)
 
     args = parser.parse_args()
 
-    if args.password is True:
-        password = getpass()
-    else:
-        password = ""  # empty string for now
-    return ProtectedFile(
-        new=args.new,
-        password=password
+    password = getpass()
+
+    arguments = Arguments(
+        password=password,
+        lock=args.lock,
+        unlock=args.unlock,
+        file=args.file
     )
 
+    if arguments.lock is True and arguments.unlock is True:
+        raise ValueError("Cannot both lock and unlock the file at the same time")
+    if arguments.lock is False and arguments.unlock is False:
+        raise ValueError("Must either lock or unlock the file")
 
-def main():
+    return arguments
 
-    protected_file = parse_arguments()
 
-    # if args.new is not None:
-    #     create_file(args.new)
-    #
-    # else:
-    #     if args.encrypt is True and args.decrypt is False:
-    #         print("encrypt")
-    #         # encrypt_file(args.file)
-    #     elif args.decrypt is True and args.encrypt is False:
-    #         print("decrypt")
-    #         # decrypt_file(args.file)
-    #     else:
-    #         raise ValueError("Only one of --encrypt (-e) or --decrypt (-d) must be passed")
+def main() -> None:
+    arguments = parse_arguments()
+    if arguments.lock:
+        lock_file(arguments.file, arguments.password)
+    elif arguments.unlock:
+        unlock_file(arguments.file, arguments.password)
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ def tmp_files():
     return files("test.tmp_test_files")
 
 
-@pytest.fixture()
+@pytest.fixture
 def teardown_delete_tmp_files():
     """
     Fixture for deleting all files in test/tmp_test_files/*.prot
@@ -20,3 +20,17 @@ def teardown_delete_tmp_files():
     for file_path in directory.glob("*.prot"):
         if file_path.is_file():
             file_path.unlink()
+
+
+@pytest.fixture
+def create_tmp_file_unlocked():
+    file_path = str(files("test.tmp_test_files").joinpath(
+        "tmp_file_unlocked.unlocked"
+    ))
+
+    # Convert to filesystem path and create the file
+    with open(file_path, "w") as f:
+        f.write("")
+
+    yield file_path
+    ...
