@@ -1,9 +1,8 @@
 import argparse
+from dataclasses import dataclass
 from getpass import getpass
 
-from dataclasses import dataclass
-
-from pypassword_protect.source.helpers import unlock_file, lock_file
+from pypassword_protect.source.helpers import lock_file, unlock_file
 
 description = """
 Password-protect files. 
@@ -22,8 +21,12 @@ class Arguments:
 def parse_arguments() -> Arguments:
     parser = argparse.ArgumentParser(description=description)
 
-    parser.add_argument("-l", "--lock", action="store_true", help="Lock (encrypt) the file")
-    parser.add_argument("-u", "--unlock", action="store_true", help="Unlock (decrypt) the file")
+    parser.add_argument(
+        "-l", "--lock", action="store_true", help="Lock (encrypt) the file"
+    )
+    parser.add_argument(
+        "-u", "--unlock", action="store_true", help="Unlock (decrypt) the file"
+    )
     parser.add_argument("-f", "--file", help="Path to the file", required=True)
 
     args = parser.parse_args()
@@ -31,10 +34,7 @@ def parse_arguments() -> Arguments:
     password = getpass()
 
     arguments = Arguments(
-        password=password,
-        lock=args.lock,
-        unlock=args.unlock,
-        file=args.file
+        password=password, lock=args.lock, unlock=args.unlock, file=args.file
     )
 
     if arguments.lock is True and arguments.unlock is True:

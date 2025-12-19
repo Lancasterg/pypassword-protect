@@ -1,6 +1,6 @@
-from pathlib import Path
 import base64
 import os
+from pathlib import Path
 
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
@@ -49,7 +49,9 @@ def lock_file(file_path: str, password: str) -> None:
         f.write(salt + encrypted_data)
 
 
-def unlock_file(file_path: str, password: str, output_location: str | None = None) -> None:
+def unlock_file(
+    file_path: str, password: str, output_location: str | None = None
+) -> None:
     with open(file_path, "rb") as open_file:
         blob = open_file.read()
 
@@ -71,4 +73,3 @@ def unlock_file(file_path: str, password: str, output_location: str | None = Non
 
     with open(write_location, "wb") as open_file:
         open_file.write(decrypted_data)
-
