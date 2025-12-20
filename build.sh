@@ -1,2 +1,2 @@
 #!/bin/bash
-echo TODO
+pyinstaller --onefile pypassword_protect/run/main.py
