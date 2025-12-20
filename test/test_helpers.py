@@ -1,4 +1,4 @@
-from pypassword_protect.source.helpers import has_prot_file_extension
+from passprotect.helpers import has_prot_file_extension
 from pathlib import Path, PosixPath
 
 

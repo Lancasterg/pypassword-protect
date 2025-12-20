@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Lancasterg <lancaster0180@gmail.com>"]
 readme = "README.md"
-packages = [{include = "pypassword_protect"}]
+packages = [{include = "passprotect"}]
 
 [tool.poetry.dependencies]
 python = "<3.15,>=3.10"

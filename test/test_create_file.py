@@ -1,4 +1,4 @@
-from pypassword_protect.source.encryption_decryption import create_file
+from passprotect.source.encryption_decryption import create_file
 
 
 def test_create_file(tmp_files, teardown_delete_tmp_files):

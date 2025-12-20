@@ -1,6 +1,6 @@
 from importlib.resources import files
 
-from pypassword_protect.source.helpers import lock_file, unlock_file
+from passprotect.helpers import lock_file, unlock_file
 
 
 def test_lock_file(create_tmp_file_unlocked):
