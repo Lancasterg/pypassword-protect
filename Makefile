@@ -2,6 +2,12 @@
 
 all: build test lint
 
+
+install:
+	@echo Installing project
+	poetry install --with dev
+	poetry lock
+
 build:
 	@echo Building exectutable...
 	./build.sh

@@ -13,13 +13,17 @@ To install the `passprotect` binary:
     ```bash
     sudo mv bin/passprotect /usr/local/bin/
     ```
-    This moves the `passprotect` executable to `/usr/local/bin/`, making it accessible from any directory in your terminal.
+    
+    The executable can now be called:
+    ```bash
+    passprotect --help
+    ```
 
     Alternatively, you can add the `bin/` directory to your `PATH` environment variable:
     ```bash
     export PATH=$PATH:/path/to/passprotect/bin
     ```
-    (Replace `/path/to/pypassword-encryption` with the actual path to your cloned repository.)
+    (Remember to replace `/path/to/pypassword-encryption` with the actual path to your cloned repository.)
 
 ## Usage
 
@@ -28,7 +32,7 @@ To install the `passprotect` binary:
 To encrypt (lock) a file, use the `lock` command:
 
 ```bash
-passprotect -l <filename> -o <output_location>
+passprotect --lock <filename> -o <output_location>
 ```
 
 You will be prompted to enter a password, which will be used to encrypt the file. **IF NO OUTPUT LOCATION IS PROVIDED, THE FILE WILL BE OVERWRITTEN INPLACE**.
@@ -50,7 +54,7 @@ To decrypt a file, use the `unlock` command:
 
 
 ```bash
-passprotect -u <filename> -o <output_location>
+passprotect -unlock <filename> -o <output_location>
 ```
 
 **Example**
@@ -62,6 +66,16 @@ File dev_tools/locked.txt unlocked to dev_tools/unlocked.txt
 ```
 
 You will be prompted to enter the password used during encryption. If the password is correct, the file will be decrypted and written to the output location supplied. **IF NO OUTPUT LOCATION IS PROVIDED, THE FILE WILL BE OVERWRITTEN INPLACE**.
+
+
+## Building from scratch
+The project is trivial to build from scratch assuming that you have poetry installed on your machine.
+```shell
+$ make install
+...
+$ make build
+```
+
 
 ## How it works
 
