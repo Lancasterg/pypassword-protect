@@ -1,3 +1,3 @@
 #!/bin/bash
-pyinstaller --onefile pypassword_protect/run/main.py
+pyinstaller --onefile passprotect/main.py
 mv dist/main bin/passprotect
