@@ -3,21 +3,21 @@
 all: build test lint
 
 build:
+	@echo Building exectutable...
 	./build.sh
 
 test:
+	@echo Running tests...
 	pytest
 	rm -rf test/tmp_test_files/*
 
 lint:
+	@echo Linting
 	black pypassword_protect
 	isort pypassword_protect
 
 clean:
+	@echo cleaning
 	rm -rf dist build *.egg-info main.spec
-	rm -rf test/tmp_test_files/*
 	rm -rf .pytest_cache/
 	rm -rf .mypy_cache/
-
-run:
-	python -m pypassword
