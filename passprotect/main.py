@@ -11,8 +11,7 @@ from passprotect.helpers import (
 )
 
 description = """
-Password-protect files. 
-    TODO: write more in here :)
+CLI tool to encrypt files using a password.
 """
 
 
@@ -22,6 +21,7 @@ class Arguments:
     lock: bool
     unlock: bool
     file: str
+    output_location: str | None
 
 
 def parse_arguments() -> Arguments:
@@ -30,6 +30,7 @@ def parse_arguments() -> Arguments:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-l", "--lock", action="store_true", help="Lock a file")
     group.add_argument("-u", "--unlock", action="store_true", help="Unlock a file")
+    parser.add_argument("-o", "--output", help="Location to output the locked / unlocked file")
 
     parser.add_argument(
         "-n",
@@ -46,6 +47,7 @@ def parse_arguments() -> Arguments:
         exit(0)
 
     if args.unlock is True:
+        print(args.file)
         if not is_locked(args.file):
             print("File is not locked")
             exit()
@@ -60,7 +62,7 @@ def parse_arguments() -> Arguments:
             exit(-1)
 
     return Arguments(
-        password=password, file=args.file, lock=args.lock, unlock=args.unlock
+        password=password, file=args.file, lock=args.lock, unlock=args.unlock, output_location=args.output
     )
 
 
@@ -68,13 +70,15 @@ def main() -> None:
     arguments = parse_arguments()
 
     if arguments.lock:
-        lock_file(arguments.file, arguments.password)
+        lock_file(arguments.file, arguments.password, output_location=arguments.output_location)
 
     elif arguments.unlock:
         try:
-            unlock_file(arguments.file, arguments.password)
+            unlock_file(arguments.file, arguments.password, output_location=arguments.output_location)
         except BadPasswordException:
             print("Password does not match")
+        except ValueError:
+            print("Corrupted file cannot be decrypted")
 
 
 if __name__ == "__main__":

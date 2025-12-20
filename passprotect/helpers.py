@@ -40,6 +40,12 @@ def is_locked(file_path: str) -> bool:
     Check whether a file appears to be locked (encrypted) by this tool.
 
     This does NOT verify the password.
+
+    Args:
+        file_path: The path to the file to check
+
+    Returns:
+        bool: True if the file is locked, False otherwise
     """
     try:
         with open(file_path, "rb") as f:
@@ -53,6 +59,8 @@ def is_locked(file_path: str) -> bool:
         # Fernet tokens are URL-safe base64
         # and always start with b"gAAAAAB"
         if not encrypted_data.startswith(b"gAAAAAB"):
+            print("hello")
+            print(encrypted_data)
             return False
 
         # Validate base64 structure
@@ -60,7 +68,8 @@ def is_locked(file_path: str) -> bool:
 
         return True
 
-    except Exception:
+    except Exception as e:
+        print(e)
         return False
 
 
@@ -71,22 +80,23 @@ def file_exists(file_path: str) -> bool:
         file_path: The path to the file
 
     Returns:
-        (bool): True if the file exists, False otherwise
+        bool: True if the file exists, False otherwise
 
     """
     return Path(file_path).is_file()
 
 
-def lock_file(file_path: str, password: str) -> None:
+def lock_file(file_path: str, password: str, output_location: str | None = None) -> None:
     """
     Lock (encrypt) a file using a password.
 
     Args:
         file_path: Path to the file to unlock
         password: The password to decrypt the file with
+        output_location: The location to output the locked file
 
     Returns:
-        (None)
+        None
 
     """
     with open(file_path, "rb") as f:
@@ -99,8 +109,13 @@ def lock_file(file_path: str, password: str) -> None:
     encrypted_data = fernet.encrypt(data)
 
     # Store salt + ciphertext
-    with open(file_path, "wb") as f:
-        f.write(salt + encrypted_data)
+    if output_location is None:
+        write_location = file_path
+    else:
+        write_location = output_location
+
+    with open(write_location, "wb") as open_file:
+        open_file.write(salt + encrypted_data)
 
 
 def unlock_file(
@@ -112,10 +127,10 @@ def unlock_file(
     Args:
         file_path: Path to the file to unlock
         password: The password to decrypt the file with
-        output_location: The path to the file to output
+        output_location: The location to output the unlocked file
 
     Returns:
-        (None)
+        None
 
     """
     with open(file_path, "rb") as open_file:
