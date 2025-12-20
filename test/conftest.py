@@ -24,9 +24,7 @@ def teardown_delete_tmp_files():
 
 @pytest.fixture
 def create_tmp_file_unlocked():
-    file_path = str(files("test.tmp_test_files").joinpath(
-        "tmp_file_unlocked.unlocked"
-    ))
+    file_path = str(files("test.tmp_test_files").joinpath("tmp_file_unlocked.unlocked"))
 
     # Convert to filesystem path and create the file
     with open(file_path, "w") as f:

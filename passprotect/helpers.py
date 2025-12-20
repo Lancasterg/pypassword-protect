@@ -11,12 +11,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 SALT_SIZE: int = 16
 
 
-class LockException(Exception):
-    ...
-
-
-class BadPasswordException(Exception):
-    ...
+class BadPasswordException(Exception): ...
 
 
 def _derive_key(password: str, salt: bytes) -> bytes:
@@ -67,6 +62,19 @@ def is_locked(file_path: str) -> bool:
 
     except Exception:
         return False
+
+
+def file_exists(file_path: str) -> bool:
+    """
+    Checks to see if a file exists
+    Args:
+        file_path: The path to the file
+
+    Returns:
+        (bool): True if the file exists, False otherwise
+
+    """
+    return Path(file_path).is_file()
 
 
 def lock_file(file_path: str, password: str) -> None:

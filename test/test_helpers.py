@@ -42,4 +42,3 @@ def test_has_prot_file_extension_no_extension():
     file_path = "a/path/to/a/file/file"
 
     assert has_prot_file_extension(file_path) is False
-
