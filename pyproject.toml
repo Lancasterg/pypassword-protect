@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pypassword-protect"
+name = "passprotect"
 version = "0.1.0"
 description = ""
 authors = ["Lancasterg <lancaster0180@gmail.com>"]
@@ -25,4 +25,4 @@ build-backend = "poetry.core.masonry.api"
 
 
 [project.scripts]
-mycommand = "pypassword_protect.run.main:main"
+mycommand = "passprotect.main:main"
