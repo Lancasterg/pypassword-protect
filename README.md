@@ -23,27 +23,45 @@ To install the `passprotect` binary:
 
 ## Usage
 
-Once installed, you can use `passprotect` to lock and unlock your files.
-
 ### Locking a file
 
-To encrypt a file, use the `lock` command:
+To encrypt (lock) a file, use the `lock` command:
 
 ```bash
-passprotect -l <filename>
+passprotect -l <filename> -o <output_location>
 ```
 
-You will be prompted to enter a password, which will be used to encrypt the file.
+You will be prompted to enter a password, which will be used to encrypt the file. **IF NO OUTPUT LOCATION IS PROVIDED, THE FILE WILL BE OVERWRITTEN INPLACE**.
+
+The `--no-confirm` flag can be used so that the password to encrypt the file is only entered once.
+
+**Example:**
+
+```bash
+$ passprotect -l dev_tools/tmp.txt -o dev_tools/locked.txt
+  Password: 
+  Confirm password: 
+  File dev_tools/tmp.txt locked to dev_tools/locked.txt
+```
 
 ### Unlocking a file
 
 To decrypt a file, use the `unlock` command:
 
+
 ```bash
-passprotect -u <filename>
+passprotect -u <filename> -o <output_location>
 ```
 
-You will be prompted to enter the password used during encryption. If the password is correct, the file will be decrypted.
+**Example**
+```bash
+$ passprotect -u dev_tools/locked.txt -o dev_tools/unlocked.txt
+dev_tools/locked.txt
+Password: 
+File dev_tools/locked.txt unlocked to dev_tools/unlocked.txt
+```
+
+You will be prompted to enter the password used during encryption. If the password is correct, the file will be decrypted and written to the output location supplied. **IF NO OUTPUT LOCATION IS PROVIDED, THE FILE WILL BE OVERWRITTEN INPLACE**.
 
 ## How it works
 

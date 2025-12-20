@@ -11,7 +11,7 @@ from passprotect.helpers import (
 )
 
 description = """
-CLI tool to encrypt files using a password.
+A simple CLI tool to encrypt (lock) and decrypt (unlock) files using a password.
 """
 
 
@@ -36,7 +36,7 @@ def parse_arguments() -> Arguments:
         "-n",
         "--no-confirm",
         action="store_true",
-        help="Don't require lock password confirmation",
+        help="No password confirmation for locking files",
     )
     parser.add_argument("file", help="Path to the file")
 
@@ -61,8 +61,13 @@ def parse_arguments() -> Arguments:
             print("Passwords do not match")
             exit(-1)
 
+    if args.output is None:
+        output_location = args.file
+    else:
+        output_location = args.output
+
     return Arguments(
-        password=password, file=args.file, lock=args.lock, unlock=args.unlock, output_location=args.output
+        password=password, file=args.file, lock=args.lock, unlock=args.unlock, output_location=output_location
     )
 
 
@@ -70,11 +75,13 @@ def main() -> None:
     arguments = parse_arguments()
 
     if arguments.lock:
-        lock_file(arguments.file, arguments.password, output_location=arguments.output_location)
-
+        lock_file(arguments.file, arguments.password, arguments.output_location)
+        print(f"File {arguments.file} locked to {arguments.output_location}")
     elif arguments.unlock:
         try:
-            unlock_file(arguments.file, arguments.password, output_location=arguments.output_location)
+            unlock_file(arguments.file, arguments.password, arguments.output_location)
+            print(f"File {arguments.file} unlocked to {arguments.output_location}")
+
         except BadPasswordException:
             print("Password does not match")
         except ValueError:

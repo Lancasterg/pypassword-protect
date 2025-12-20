@@ -86,7 +86,7 @@ def file_exists(file_path: str) -> bool:
     return Path(file_path).is_file()
 
 
-def lock_file(file_path: str, password: str, output_location: str | None = None) -> None:
+def lock_file(file_path: str, password: str, output_location: str) -> None:
     """
     Lock (encrypt) a file using a password.
 
@@ -109,17 +109,12 @@ def lock_file(file_path: str, password: str, output_location: str | None = None)
     encrypted_data = fernet.encrypt(data)
 
     # Store salt + ciphertext
-    if output_location is None:
-        write_location = file_path
-    else:
-        write_location = output_location
-
-    with open(write_location, "wb") as open_file:
+    with open(output_location, "wb") as open_file:
         open_file.write(salt + encrypted_data)
 
 
 def unlock_file(
-    file_path: str, password: str, output_location: str | None = None
+    file_path: str, password: str, output_location: str
 ) -> None:
     """
     Unlock (decrypt) a file using a password.
@@ -150,10 +145,5 @@ def unlock_file(
     except InvalidToken as e:
         raise BadPasswordException("Password does not match") from e
 
-    if output_location is None:
-        write_location = file_path
-    else:
-        write_location = output_location
-
-    with open(write_location, "wb") as open_file:
+    with open(output_location, "wb") as open_file:
         open_file.write(decrypted_data)
