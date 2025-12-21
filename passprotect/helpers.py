@@ -59,8 +59,6 @@ def is_locked(file_path: str) -> bool:
         # Fernet tokens are URL-safe base64
         # and always start with b"gAAAAAB"
         if not encrypted_data.startswith(b"gAAAAAB"):
-            print("hello")
-            print(encrypted_data)
             return False
 
         # Validate base64 structure
@@ -69,7 +67,6 @@ def is_locked(file_path: str) -> bool:
         return True
 
     except Exception as e:
-        print(e)
         return False
 
 

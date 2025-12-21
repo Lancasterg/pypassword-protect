@@ -1,44 +1,27 @@
-from passprotect.helpers import has_prot_file_extension
-from pathlib import Path, PosixPath
+from passprotect.helpers import (
+    _derive_key,
+    is_locked,
+lock_file
+)
 
 
-def test_has_prot_file_extension_str_true():
-    file_path = "a/path/to/a/file/file.prot"
+def test_derive_key():
+    salt = b"hello"
+    password = "hello_password"
+    key = _derive_key(password, salt)
 
-    assert has_prot_file_extension(file_path) is True
-
-
-def test_has_prot_file_extension_path_true():
-    file_path = Path("a/path/to/a/file/file.prot")
-
-    assert has_prot_file_extension(file_path) is True
+    assert key == b'G3pU8tXRURrW0-75euq3n2zTtQwf2VhbvmjndCg7rrA='
 
 
-def test_has_prot_file_extension_posix_path_true():
-    file_path = PosixPath("a/path/to/a/file/file.prot")
-
-    assert has_prot_file_extension(file_path) is True
+def test_is_locked_unlocked(create_tmp_file_unlocked):
+    assert is_locked(create_tmp_file_unlocked) is False
 
 
-def test_has_prot_file_extension_str_false():
-    file_path = "a/path/to/a/file/file.scroop"
-
-    assert has_prot_file_extension(file_path) is False
-
-
-def test_has_prot_file_extension_path_false():
-    file_path = Path("a/path/to/a/file/file.noop")
-
-    assert has_prot_file_extension(file_path) is False
+def test_is_locked_locked(create_tmp_file_unlocked):
+    # Not good practice using this func to lock the file
+    lock_file(create_tmp_file_unlocked, "password", create_tmp_file_unlocked)
+    assert is_locked(create_tmp_file_unlocked) is True
 
 
-def test_has_prot_file_extension_posix_path_false():
-    file_path = PosixPath("a/path/to/a/file/file.loop")
-
-    assert has_prot_file_extension(file_path) is False
-
-
-def test_has_prot_file_extension_no_extension():
-    file_path = "a/path/to/a/file/file"
-
-    assert has_prot_file_extension(file_path) is False
+def test_file_exists(create_tmp_file_unlocked):
+    ...

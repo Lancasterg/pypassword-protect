@@ -17,14 +17,14 @@ def teardown_delete_tmp_files():
     ...
     yield
     directory = Path(files("test.tmp_test_files").name)
-    for file_path in directory.glob("*.prot"):
+    for file_path in directory.glob("*.test"):
         if file_path.is_file():
             file_path.unlink()
 
 
 @pytest.fixture
 def create_tmp_file_unlocked():
-    file_path = str(files("test.tmp_test_files").joinpath("tmp_file_unlocked.unlocked"))
+    file_path = str(files("test.tmp_test_files").joinpath("tmp_file_unlocked.test"))
 
     # Convert to filesystem path and create the file
     with open(file_path, "w") as f:
@@ -32,3 +32,4 @@ def create_tmp_file_unlocked():
 
     yield file_path
     ...
+
