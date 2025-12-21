@@ -1,7 +1,7 @@
-import pytest
-
 from importlib.resources import files
 from pathlib import Path
+
+import pytest
 
 
 @pytest.fixture
@@ -32,4 +32,3 @@ def create_tmp_file_unlocked():
 
     yield file_path
     ...
-

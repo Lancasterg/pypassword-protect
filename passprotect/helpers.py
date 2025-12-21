@@ -7,7 +7,6 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
-
 SALT_SIZE: int = 16
 
 
@@ -110,9 +109,7 @@ def lock_file(file_path: str, password: str, output_location: str) -> None:
         open_file.write(salt + encrypted_data)
 
 
-def unlock_file(
-    file_path: str, password: str, output_location: str
-) -> None:
+def unlock_file(file_path: str, password: str, output_location: str) -> None:
     """
     Unlock (decrypt) a file using a password.
 

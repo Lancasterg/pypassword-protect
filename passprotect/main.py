@@ -2,13 +2,8 @@ import argparse
 from dataclasses import dataclass
 from getpass import getpass
 
-from passprotect.helpers import (
-    lock_file,
-    unlock_file,
-    BadPasswordException,
-    is_locked,
-    file_exists,
-)
+from passprotect.helpers import (BadPasswordException, file_exists, is_locked,
+                                 lock_file, unlock_file)
 
 description = """
 A simple CLI tool to encrypt (lock) and decrypt (unlock) files using a password.
@@ -30,7 +25,9 @@ def parse_arguments() -> Arguments:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-l", "--lock", action="store_true", help="Lock a file")
     group.add_argument("-u", "--unlock", action="store_true", help="Unlock a file")
-    parser.add_argument("-o", "--output", help="Location to output the locked / unlocked file")
+    parser.add_argument(
+        "-o", "--output", help="Location to output the locked / unlocked file"
+    )
 
     parser.add_argument(
         "-n",
@@ -67,7 +64,11 @@ def parse_arguments() -> Arguments:
         output_location = args.output
 
     return Arguments(
-        password=password, file=args.file, lock=args.lock, unlock=args.unlock, output_location=output_location
+        password=password,
+        file=args.file,
+        lock=args.lock,
+        unlock=args.unlock,
+        output_location=output_location,
     )
 
 
